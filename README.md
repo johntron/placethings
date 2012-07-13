@@ -1,0 +1,1 @@
+The PlaceThings project spawned out of MobileLab at the University of Texas at Dallas. It is the brainchild of Dean Terry, Nicholas Spencer, and John Syrinek. We got so close, but fate would not allow us to finish the project and give the world something truly fun and innovative.
