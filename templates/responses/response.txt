@@ -1,0 +1,52 @@
+{% for thing in things %}
+id={{thing.id}}
+type=thing
+lattitude={{thing.lattitude}}
+longitude={{thing.longitude}}
+media={{thing.media}}
+duration={{thing.duration|default_if_none:""}}
+timestamp={{thing.timestamp}}
+type={{thing.type}}
+title={{thing.title|default_if_none:""}}
+dist={{thing.distance|default_if_none:""}}
+author_id={{thing.author.id|default_if_none:""}}
+author_username={{thing.author.username|default_if_none:""}}{% if thing.author.get_profile.avatar %}
+author_avatar={{thing.author.get_profile.avatar.url|default_if_none:""}}{% endif %}
+parent={{thing.parent.id|default_if_none:""}}
+replies={{thing.replies|default_if_none:""}}
+quantity={{thing.quantity|default_if_none:""}}
+bundles={% for bundle in thing.bundle_set.all %}{% if forloop.last %}{{bundle.id}}{% else %}{{bundle.id}},{% endif %}{% endfor %}
+{% endfor %}
+
+{% regroup records by bundle_id as sets %}
+sets{% for bundle_id in sets %}
+set
+id={{ bundle_id.grouper }}{% for item in bundle_id.list %}{% if forloop.first %}
+timestamp = {{ item.timestamp }}{% endif %}{% endfor %}
+things{% for item in bundle_id.list %}
+id={{item.thing.id}}
+lattitude={{item.thing.lattitude}}
+longitude={{item.thing.longitude}}
+media={{item.thing.media}}
+duration={{item.thing.duration|default_if_none:""}}
+timestamp={{item.thing.timestamp}}
+type={{item.thing.type}}
+title={{item.thing.title|default_if_none:""}}
+dist={{item.thing.distance|default_if_none:""}}
+author_id={{item.thing.author.id|default_if_none:""}}
+author_username={{item.thing.author.username|default_if_none:""}}{% if item.thing.author.get_profile.avatar %}
+author_avatar={{item.thing.author.get_profile.avatar.url|default_if_none:""}}{% endif %}
+parent={{item.thing.parent.id|default_if_none:""}}
+replies={{item.thing.replies|default_if_none:""}}
+quantity={{item.thing.quantity|default_if_none:""}}{% endfor %} 
+{% endfor %}
+	
+{% for region in regions %}
+id={{region.id}}
+type = regions
+shortLat={{region.shortlat}}
+shortlong={{region.shortlong}}
+weight={{region.weight}}
+{% endfor %}
+
+success; Things: {{things|length}} results, Regions: {{regions|length}} resultsa;

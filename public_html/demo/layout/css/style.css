@@ -1,0 +1,275 @@
+/* Layout Stylesheet for Placethings Teaser Page 
+   December 7, 2009
+*/
+
+
+/* CONTENTS:
+   GENERIC
+   HEAD
+   BODY
+   LISTS
+   FORMS
+*/
+
+
+/* =GENERIC
+   ----------------------------------------------------*/
+
+body {
+	background-color: #000000;
+	font-family: Geneva, "Trebuchet MS", Verdana, Helvetica, Arial, sans-serif;
+}
+
+body, a {
+	color: #202020;
+}
+
+#wrapper {
+	margin: 0 auto;
+	padding: 0 20px;
+	width: 940px;
+}
+
+em {
+	color: #900A0A;
+	font-weight: bold;
+}
+
+
+
+/* =HEAD
+   ----------------------------------------------------*/
+
+#head {
+	background-image: url(../images/content-box_top.gif);
+	background-position: left bottom;
+	padding-top: 70px;
+	padding-bottom: 30px;
+}
+
+#head a#logo {
+	background: transparent no-repeat scroll 0 0;
+	background-image: url(../images/placethings-logo.gif);
+	display: block;
+	height: 41px;
+	overflow:hidden;
+	text-indent:-9999em;
+	width: 131px;
+}
+
+
+
+/* =BODY
+   ----------------------------------------------------*/
+
+#body {
+	background-color: #FFF;
+	background-position: right top;
+}
+
+	#body.stories {
+		background-image: url(../images/1_place-based-stories.jpg);
+	}
+	
+	#body.lasting-things {
+		background-image: url(../images/2_lasting-things.jpg);
+	}
+	
+	#body.beyond-text {
+		background-image: url(../images/3_beyond-text.jpg);
+	}
+	
+	#body.social-maps {
+		background-image: url(../images/4_social-maps.jpg);
+	}
+	
+	#body.sharing-places {
+		background-image: url(../images/5_sharing-places.jpg)
+	}
+
+#content {
+	background-image: url(../images/content-box_left-border.gif);
+	background-position:left top;
+	height: 446px;
+}
+
+	#content h1 {
+		font-size: 27px;
+		line-height: 155%;
+		margin: 0 0 15px 30px;
+		padding-top: 10px;
+		width: 360px;
+	}
+	
+	#content p {
+		font-size: 15px;
+		line-height: 150%;
+		margin: 0 0 20px 30px;
+		width: 360px;
+	}
+
+#menu {
+	background-image: url(../images/menu.jpg);
+	background-position: left bottom;
+	height: 95px;
+}
+
+
+
+/* =LISTS
+   ----------------------------------------------------*/
+   
+ul#media-types {
+	height: 63px;
+	margin-left: 30px;
+}
+
+	ul#media-types li {
+		display: block;
+		float: left;
+		font-size: 13px;
+		font-weight: bold;
+		padding-right: 30px;
+		padding-top: 50px;
+		text-align: center;
+		width: 44px;
+	}
+	
+	#media-types li#photo {
+		background-image: url(../images/icon_photo.gif);
+	}
+	
+	#media-types li#video {
+		background-image: url(../images/icon_video.gif);
+	}
+	
+	#media-types li#audio {
+		background-image: url(../images/icon_audio.gif);
+	}
+	
+	#media-types li#text {
+		background-image: url(../images/icon_text.gif);
+	}
+	
+	#media-types li#secret {
+		background-image: url(../images/icon_secret.gif);
+		font-family: Arial, Helvetica, sans-serif;
+	}
+
+
+/* =FORMS
+   ----------------------------------------------------*/
+   
+input#mb-blyjt-blyjt {
+	float: left;
+	font-family: Geneva, "Trebuchet MS", Verdana, Helvetica, Arial, sans-serif;
+	font-size: 20px;
+	height: 36px;
+	margin: 42px 0 0 40px;
+	width: 210px;
+}
+
+input#submit {
+	float: left;
+	margin-top: 37px;
+	margin-left: 20px;
+}
+
+
+/* =FOOT
+   ----------------------------------------------------*/
+
+#foot {
+	background-image:url(../images/menu.gif);
+	background-position: bottom;
+	height: 119px;
+	margin-top: -119px;
+	width: 429px;
+}
+
+	#foot ul li {
+		background-position: center top;
+		display: block;
+		float: left;
+		font-size: 9px;
+		font-weight: normal;
+		height: 50px;
+		margin-top: 30px;
+		padding-top: 69px;
+		text-align: center;
+		width: 80px;
+	}
+	
+	#foot ul li a {
+		padding-top: 80px;
+	}
+	
+	#foot ul li a:hover {
+		color: #730000;
+	}
+	
+		#foot ul li.selected {
+			background-position: left top;
+			color: #730000;
+			height: 120px;
+			margin-top: 0;
+			margin-right: -5px;
+			padding: 99px 0 0 0;
+		}
+	
+	#foot ul li#stories {
+		background-image:url(../images/menu_1_place-based-stories.gif);
+	}
+	
+		#foot ul li#stories.selected {
+			background-image: url(../images/menu_1_place-based-stories_selected.gif);
+			padding-right: 5px;
+		}
+	
+	#foot ul li#lasting-things {
+		background-image:url(../images/menu_2_lasting-things.gif);
+	}
+	
+		#foot ul li#lasting-things.selected {
+			background-image: url(../images/menu_2_lasting-things_selected.gif);
+			background-position: left top;
+			margin-left: -5px;
+			padding-right: 10px;
+			text-indent: 10px;
+		}
+	
+	#foot ul li#beyond-text {
+		background-image:url(../images/menu_3_beyond-text.gif);
+	}
+	
+		#foot ul li#beyond-text.selected {
+			background-image: url(../images/menu_3_beyond-text_selected.gif);
+			background-position: left top;
+			margin-left: -5px;
+			padding-right: 10px;
+			text-indent: 10px;
+		}
+	
+	#foot ul li#social-maps {
+		background-image:url(../images/menu_4_social-maps.gif);
+	}
+	
+		#foot ul li#social-maps.selected {
+			background-image: url(../images/menu_4_social-maps_selected.gif);
+			background-position: left top;
+			margin-left: -5px;
+			padding-right: 10px;
+			text-indent: 10px;
+		}
+	
+	#foot ul li#sharing-places {
+		background-image:url(../images/menu_5_sharing-places.gif);
+	}
+	
+		#foot ul li#sharing-places.selected {
+				background-image: url(../images/menu_5_sharing-places_selected.gif);
+				background-position: left top;
+				margin-left: -7px;
+				padding-right: 10px;
+				text-indent: 15px;
+			}

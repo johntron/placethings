@@ -1,0 +1,10 @@
+<author>
+	<id>{{user.id}}</id>
+	<username>{{user.username}}</username>
+	<first_name>{{user.first_name}}</first_name>
+	<last_name>{{user.last_name}}</last_name>
+	<email>{{user.email}}</email>
+	<avatar>{% if user.get_profile.avatar %}{{user.get_profile.avatar.url}}{% endif %}</avatar>
+	<website>{{user.get_profile.website|default:""}}</website>
+	<twitter_username>{{user.get_profile.twitter_username|default:""}}</twitter_username>
+</author>

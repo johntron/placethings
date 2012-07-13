@@ -1,0 +1,10 @@
+{
+	'id': '{{user.id}}',
+	'username': '{{user.username}}',
+	'first_name': '{{user.first_name}}',
+	'last_name': '{{user.last_name}}',
+	'email': '{{user.email}}',
+	'avatar': '{% if user.get_profile.avatar %}{{user.get_profile.avatar.url}}{% endif %}',
+	'website': '{{user.get_profile.website|default:""}}',
+	'twitter_username': '{{user.get_profile.twitter_username|default:""}}'
+}

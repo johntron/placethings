@@ -1,0 +1,17 @@
+<!-- generator="wordpress/2.8.6" --> 
+<!-- sitemap-generator-url="http://www.arnebrachhold.de" sitemap-generator-version="3.2.1" --> 
+<!-- generated-on="15 December 2009 11:47 pm" --> 
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<url> 
+		<loc>http://www.placethings.com/</loc> 
+		<lastmod>2009-12-17T11:46:15+00:00</lastmod> 
+		<changefreq>daily</changefreq> 
+		<priority>1.0</priority> 
+	</url> 
+	<url> 
+		<loc>http://www.placethings.com/demo/</loc> 
+		<lastmod>2010-02-01T11:46:15+00:00</lastmod> 
+		<changefreq>daily</changefreq> 
+		<priority>1.0</priority> 
+	</url> 
+</urlset>

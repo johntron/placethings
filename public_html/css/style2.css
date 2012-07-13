@@ -1,0 +1,83 @@
+/* CSS for placethings */
+
+* {
+	background-repeat: no-repeat;
+}
+
+body {
+	margin: 0;
+	background-color: #66AFCC;
+	background-image: url(/images/background.png);
+	background-repeat: no-repeat;
+	background-position: center top;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #FFFFFF;
+}
+
+a img {
+	border: 0 none;
+}
+
+#mainContainer {
+	margin: 0 auto;
+	padding-top: 70px;
+	width: 700px;
+}
+
+
+#infoBox {
+	width: 377px;
+	background-image: url(/images/box_top.gif);
+	margin-left: 240px;
+	padding: 30px 20px 0 20px;
+}
+
+p.bigText {
+	font-size: 22px;
+	margin-top: 0;
+	padding-top: 0;
+	padding-top: 20px;
+}
+ 
+a {
+	color: #FFFFFF;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+
+input#mb-blyjt-blyjt {
+	background-image: url(/images/input_field.gif);
+	background-color: #66AFCC;
+	font-size: 14px;
+	color: #FFFFFF;
+	font-weight: bold;
+	width: 153px;
+	height: 25px;
+	padding: 4px 10px 0 5px;
+	border: 0 none;
+	margin: 0;
+	float: left;
+}
+
+input#submit {
+	width: 54px;
+	height: 25px;
+	margin-left: 5px;
+	border: 0 none;
+}
+
+p.bigText.announce {
+	padding-bottom: 25px;
+	background-image: url(/images/divider.gif);
+	background-position: center bottom;
+}
+
+div.leftBox {
+	float: left;
+}

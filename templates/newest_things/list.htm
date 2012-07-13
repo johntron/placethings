@@ -1,0 +1,65 @@
+{% extends 'newest_things/base.htm' %}
+{% load thumbnail_url %}
+
+{% block inspector %}
+		<div id="inspector" class="hidden">
+		<div class="wrapper">
+			<h2>&nbsp;</h2>
+			<p class="media">&nbsp;</p>
+			<div class="meta">
+				<!--<br style="clear: both;" />
+				<br />-->
+				<label class="age">Age: </label><span class="age">&nbsp;</span><br />
+				<label class="location">Location: </label><span class="location">&nbsp;</span><br />
+				<br />
+				<a href="#" class="author avatar">&nbsp;</a> 
+				<span href="#" class="author name">John Syrinek</span><br />
+				AKA <a href="#" class="author username">&nbsp;</a><br />
+				<a href="#" class="author follow">Follow</a><br />
+			</div>
+			<br style="clear: both;" />
+			<img src="/images/thing-chink.png" id="thing-chink" />
+		</div><div class="replies hidden"><img src="/images/reply-chink.png" id="reply-chink" />
+			<ul>
+				<li>test</li>
+			</ul>
+		</div>
+		</div>
+{% endblock %}
+
+{% block list %}
+		<div id="list">
+		<a href="#" id="minimize_list"><img src="/images/icon_left.gif" /></a>
+		<div class="wrapper">
+			<p class="control" style="margin-left:5px; position: relative; top: -4px; ">
+				<a href="#">Featured</a> | <a href="#">Newest</a> | <a href="#">Popular</a>
+			</p>
+			<div>
+			<ul>
+			{% for thing in things %}
+				{% ifequal thing.type "I" %}
+				<li class="thing image" lattitude="{{thing.lattitude}}" longitude="{{thing.longitude}}">
+					<a href="/thing/{{thing.id}}/" id="thing{{thing.id}}" class="thing link" title="{{thing.title|default:""}}">
+					<h2 class="title">{{thing.title|default:"&nbsp;"}}</h2>
+					<img class="thumbnail" src="{{thing.media|thumbnail_url:'267x267'}}" />
+					</a>
+				</li>
+				{% endifequal %}
+				{% ifequal thing.type "T" %}
+				<li class="thing text" lattitude="{{thing.lattitude}}" longitude="{{thing.longitude}}">
+					<a href="/thing/{{thing.id}}/" id="thing{{thing.id}}" class="thing link" title="{{thing.title|default:""}}">
+					<h2 class="title">{{thing.title|default:"&nbsp;"}}</h2>
+					<p class="excerpt" media="{{thing.media}}"></p>
+					</a>
+				</li>
+				{% endifequal %}
+			{% endfor %}
+			</ul>
+			</div>
+			<div class="control">
+				<a style="float: left; margin-left: 3px; position: relative; top: 10px; " href="#">&laquo; Prev</a>
+				<a style="float: right; margin-right: 24px; position: relative; top: 10px; " href="#">Next &raquo;</a>
+			</div>
+		</div>
+		</div>
+{% endblock %}

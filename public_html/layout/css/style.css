@@ -1,0 +1,212 @@
+/* Layout Stylesheet for Placethings Teaser Page 
+   February 1, 2010
+*/
+
+
+/* CONTENTS:
+   GENERIC
+   HEAD
+   BODY
+   LISTS
+   FORMS
+   BUTTONS
+*/
+
+
+/* =GENERIC
+   ----------------------------------------------------*/
+
+body {
+	background-color: #000000;
+	font-family: Geneva, "Trebuchet MS", Verdana, Helvetica, Arial, sans-serif;
+}
+
+body {
+	color: #202020;
+}
+
+#wrapper {
+	margin: 0 auto;
+	padding: 0 20px;
+	width: 940px;
+}
+
+em {
+	color: #900A0A;
+	font-weight: bold;
+}
+
+a {
+	color: #900A0A;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+
+/* =HEAD
+   ----------------------------------------------------*/
+
+#head {
+	background-image: url(../images/content-box_top.png);
+	background-position: left bottom;
+	padding-top: 70px;
+	padding-bottom: 30px;
+}
+
+#head a#logo {
+	background: transparent no-repeat scroll 0 0;
+	background-image: url(../images/placethings-logo.gif);
+	display: block;
+	height: 41px;
+	overflow:hidden;
+	text-indent:-9999em;
+	width: 131px;
+}
+
+
+
+/* =BODY
+   ----------------------------------------------------*/
+
+#content {
+	background-image: url(../images/content-box_middle.png);
+	height: 286px;
+}
+
+	#content h1 {
+		font-size: 20px;
+		line-height: 155%;
+		margin: 0 0 15px 30px;
+		padding-top: 10px;
+		width: 390px;
+	}
+	
+	#content p {
+		font-size: 15px;
+		line-height: 160%;
+		margin: 0 0 20px 30px;
+		width: 390px;
+	}
+
+#signup {
+	background-image: url(../images/newsletter_bg.png);
+	background-position: left bottom;
+	height: 95px;
+}
+
+
+
+/* =LISTS
+   ----------------------------------------------------*/
+   
+ul#media-types {
+	height: 63px;
+	margin-left: 30px;
+}
+
+	ul#media-types li {
+		display: block;
+		float: left;
+		font-size: 13px;
+		font-weight: bold;
+		padding-right: 30px;
+		padding-top: 50px;
+		text-align: center;
+		width: 44px;
+	}
+	
+	#media-types li#photo {
+		background-image: url(../images/icon_photo.gif);
+	}
+	
+	#media-types li#video {
+		background-image: url(../images/icon_video.gif);
+	}
+	
+	#media-types li#audio {
+		background-image: url(../images/icon_audio.gif);
+	}
+	
+	#media-types li#text {
+		background-image: url(../images/icon_text.gif);
+	}
+	
+	#media-types li#secret {
+		background-image: url(../images/icon_secret.gif);
+		font-family: Arial, Helvetica, sans-serif;
+	}
+
+
+/* =FORMS
+   ----------------------------------------------------*/
+   
+input#mb-blyjt-blyjt {
+	float: left;
+	font-family: Geneva, "Trebuchet MS", Verdana, Helvetica, Arial, sans-serif;
+	font-size: 20px;
+	height: 36px;
+	margin: 42px 0 0 40px;
+	width: 210px;
+}
+
+input#submit {
+	float: left;
+	margin-top: 37px;
+	margin-left: 20px;
+}
+
+/* =FOOTER
+   ----------------------------------------------------*/
+
+ul#social-media li {
+	display: block;
+	float: left;
+	margin-right: 10px;
+	margin-top: 20px;
+}
+
+ul#social-media li a {
+	display: block;
+	height: 26px;
+	overflow: hidden;
+	text-indent: -9999em;
+	width: 26px;
+}
+
+li#twitter a {
+	background-image:url(../images/twitter-btn.gif);
+}
+
+li#flickr a {
+	background-image:url(../images/flickr-btn.gif);
+}
+
+/* =BUTTONS
+   ----------------------------------------------------*/
+
+div#sxsw-snip {
+	position: absolute;
+	right:0;
+	top:0;
+	width: 150px;
+}
+
+div#sxsw-snip a {
+	background-image:url(../images/sxsw-snip.gif);
+	background-position: right top;
+	display: block;
+	height: 150px;
+	overflow: hidden;
+	text-indent: -9999em;
+	width: 150px;
+}
+
+span.more-btn a {
+	background-image: url(../images/see-more_button.gif);
+	background-position: left 3px;
+	display: inline-block;
+	height: 20px;
+	overflow: hidden;
+	text-indent: -9999em;
+	width: 74px;
+}

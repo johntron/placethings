@@ -1,0 +1,63 @@
+<thing_response>
+	<status>success</status>
+	<results>{{things|length}}</results>
+	<things>{% for thing in things %}
+		<thing>
+			<id>{{thing.id}}</id>
+			<lattitude>{{thing.lattitude}}</lattitude>
+			<longitude>{{thing.longitude}}</longitude>
+			<media>{{thing.media}}</media>
+			<duration>{{thing.duration|default_if_none:""}}</duration>
+			<timestamp>{{thing.timestamp}}</timestamp>
+			<type>{{thing.type}}</type>
+			<title>{{thing.title|default_if_none:""}}</title>
+			<dist>{{thing.distance|default_if_none:""}}</dist>{% if thing.author %}
+			<author>
+				<id>{{thing.author.id|default_if_none:""}}</id>
+				<username>{{thing.author.username|default_if_none:""}}</username>{% if thing.author.get_profile.avatar %}
+				<avatar>{{thing.author.get_profile.avatar.url|default_if_none:""}}</avatar>{% endif %}
+			</author>
+			{% endif %}<parent>{{thing.parent.id|default_if_none:""}}</parent>
+			<replies>{{thing.replies|default_if_none:""}}</replies>
+			<quantity>{{thing.quantity|default_if_none:""}}</quantity>
+			<bundles>{% for bundle in thing.bundle_set.all %}<bundle>{{bundle.id}}</bundle>{% endfor %}</bundles>
+		</thing>{% endfor %}
+	</things>
+ 
+	{% regroup records by bundle_id as sets %}
+	<sets>{% for bundle_id in sets %}
+		<set>
+		<id>{{bundle_id.grouper}}</id>{% for item in bundle_id.list %}{% if forloop.first %}
+		<timestamp>{{ item.timestamp }}</timestamp>{% endif %}{% endfor %}
+		<things>{% for item in bundle_id.list %}
+				<thingid>{{item.thing.id}}</thingid>
+				<lattitude>{{item.thing.lattitude}}</lattitude>
+				<longitude>{{item.thing.longitude}}</longitude>
+				<media>{{item.thing.media}}</media>
+				<duration>{{item.thing.duration|default_if_none:""}}</duration>
+				<timestamp>{{item.thing.timestamp}}</timestamp>
+				<type>{{item.thing.type}}</type>
+				<title>{{item.thing.title|default_if_none:""}}</title>
+				<dist>{{item.thing.distance|default_if_none:""}}</dist>{% if item.thing.author %}
+				<author>
+					<authorid>{{item.thing.author.id|default_if_none:""}}</authorid>
+					<username>{{item.thing.author.username|default_if_none:""}}</username>{% if item.thing.author.get_profile.avatar %}
+					<avatar>{{item.thing.author.get_profile.avatar.url|default_if_none:""}}</avatar>{% endif %}
+				</author>
+				{% endif %}<parent>{{item.thing.parent.id|default_if_none:""}}</parent>
+				<replies>{{item.thing.replies|default_if_none:""}}</replies>
+				<quantity>{{item.thing.quantity|default_if_none:""}}</quantity>{% endfor %}
+				
+		</things>	 
+		</set>{% endfor %}
+	</sets>
+	
+	<regions_size>{{regions|length}}</regions_size>
+	<regions>{% for region in regions %}
+		<region>
+			<slat>{{region.shortlat}}</slat>
+			<slon>{{region.shortlong}}</slon>
+			<value>{{region.weight}}</value>
+		</region>{% endfor %}
+	</regions>
+</thing_response>

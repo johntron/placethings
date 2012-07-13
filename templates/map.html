@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+		<title></title>
+		<!--
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<script type="text/javascript" src="/scripts/jquery-1.3.2.min.js"></script>
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+		<script type="text/javascript">
+		  function initialize() {
+		  	console.info( google )
+		  
+		    var latlng = new google.maps.LatLng(32.82248, -96.762986);
+		    var myOptions = {
+		      zoom: 14,
+		      center: latlng,
+		      mapTypeId: google.maps.MapTypeId.ROADMAP
+		    };
+		    var map = new google.maps.Map(document.getElementById("map"), myOptions);
+		    var infoWindow = new google.maps.InfoWindow()
+		    	
+		    
+		    
+		    $.ajaxSetup( {dataType: "json"} )
+			$.getJSON( "/api/view/", { 
+				lat: 32.82248,
+				lng: -96.762986,
+				imgSize: "thumb",
+				format: "json"
+			}, function( data ) {
+				$.each( data.things, function( i, thing ) {
+					var marker = new google.maps.Marker({
+						position: new google.maps.LatLng( thing.lat, thing.lng ),
+						map: map,
+						title: thing.title
+					})
+					
+					marker.thing = thing
+					
+					google.maps.event.addListener( marker, "click", function() {
+						thing = marker.thing
+						if ( thing.title != undefined ) {
+							content = "<h3>" + thing.title + "</h3>"
+						}
+						
+						if ( thing.type == 'T' ) {
+							// Text
+							content += "<p><a href=\"" + thing.media + "\" />click to read</a></p>"
+						} else if ( thing.type == 'I' ) {
+							// Image
+							content += "<p><img src=\"" + thing.media + "\" style=\"width: 100px; height: 140px;\" /></p>"
+						}
+						
+						content += "<em>" + thing.id + " - " + thing.lat + ", " + thing.lng + "</em>"
+						
+						infoWindow.set_content( content )
+						infoWindow.set_position( marker.get_position() )
+						infoWindow.open( map, marker )
+					})
+				})
+			})
+		  }
+		
+		</script>
+		-->
+
+		 <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAaaBIPjtdCPeUUpT2U6OzGBQO3YDQKRJFKtG6SN0pIOC-UwwRvxT3yZQvzEaBqxN8grAt2XO8vxxoag"
+		  type="text/javascript"></script>
+		<script type="text/javascript" src="/scripts/jquery-1.3.2.min.js"></script>
+		<script type="text/javascript">
+	
+		//<![CDATA[
+	
+		function initialize() {
+		  if (GBrowserIsCompatible()) {
+			var map = new GMap2(document.getElementById("map"))
+			map.addControl( new GLargeMapControl() )
+			var infoWindow = map.getInfoWindow()
+			GEvent.addListener( infoWindow, "click", function( x ) {
+				console.info( x )
+			})
+			$.ajaxSetup( {dataType: "json"} )
+			$.getJSON( "/api/view/", { 
+				lat: 32.82248,
+				lng: -96.762986,
+				imgSize: "thumb",
+				format: "json"
+			}, function( data ) {
+				$.each( data.things, function( i, thing ) {
+					var marker = new GMarker( new GLatLng( thing.lat, thing.lng ), {draggable: true} )
+					marker.thing = thing					
+					GEvent.addListener(marker, "dragstart", function() {
+						map.closeInfoWindow()
+					})
+					
+					GEvent.addListener(marker, "click", function() {
+						thing = marker.thing
+						if ( thing.title != undefined) {
+							content = "<h3>" + thing.title + "</h3>"
+						}
+						
+						if ( thing.type == 'T' ) {
+							// Text
+							content += "<p><a href=\"" + thing.media + "\" />click to read</a></p>"
+						} else if ( thing.type == 'I' ) {
+							// Image
+							content += "<p><img src=\"" + thing.media + "\" style=\"width: 100px; height: 140px;\" /></p>"
+						} else if ( thing.type == 'V' ) {
+							content += "<object width=\"241\" height=\"200\"><param name=\"movie\" value=\"http://www.youtube.com/v/Nnzw_i4YmKk&hl=en&fs=1&rel=0\"></param><param name=\"allowFullScreen\" value=\"true\"></param><param name=\"allowscriptaccess\" value=\"always\"></param><embed src=\"http://www.youtube.com/v/Nnzw_i4YmKk&hl=en&fs=1&rel=0\" type=\"application/x-shockwave-flash\" allowscriptaccess=\"always\" allowfullscreen=\"true\" width=\"320\" height=\"265\"></embed></object>"
+						}
+						
+						tabs = new Array()
+						tabs[ 0 ] = new GInfoWindowTab( "basics", content )
+						
+						content = "<p><strong>Coordinates:</strong> " + thing.lat + ", " + thing.lng + "</p>"
+						tabs[ 1 ] = new GInfoWindowTab( "details", content )
+						content = "responses"
+						tabs[ 2 ] = new GInfoWindowTab( "responses", content )
+						
+						infoWindow.reset( marker.getLatLng(), tabs, new GSize( 350, 280 ) )
+//						marker.openInfoWindowTabsHtml( tabs )
+					})
+	
+					map.addOverlay( marker )
+				})
+				thing = data.things[ $( data.things ).size() - 1 ]
+				map.setCenter(new GLatLng( thing.lat, thing.lng ), 13)
+			})
+		  }
+		}
+	
+		//]]>
+		</script>
+		<link rel="stylesheet" href="/css/style.css" type="text/css" />
+	</head>
+	<body id="location" onload="initialize()" onunload="GUnload()">
+		<div id="title">
+			<h1>6002 Goliad Ave</h1>
+			<h2>Dallas, TX</h2>
+			<h3>USA</h3>
+		</div>
+		<div id="map" style="width:100%;height:500px;"></div>
+		<div id="list">
+			<a href="#" id="rss"><img src="/images/rss.gif" /></a>
+			<p><em>A list of Things would appear here</em></p>
+		</div>
+	</body>
+</html>

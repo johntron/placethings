@@ -1,0 +1,771 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+		<title></title>
+		<style type="text/css">
+		/* Defaults */
+		html, body, * { margin: 0; padding: 0; font-family: Tahoma; font-size: 10px; line-height: 12px; }
+		h1 { font-size: 17px; line-height: 20px; font-weight: bold; }
+		h2 { font-size: 13px; line-height: 15px; }
+		h3 { font-size: 11px; line-height: 13px; }
+		a { text-decoration: none; }
+		a:hover { text-decoration: underline; }
+		p { margin-top: 6px; margin-bottom: 6px; }
+		ul { margin-bottom: 5px; }
+		li { margin-left: 14px; }
+		pre { font-family: Courier; border: 1px dashed gray; margin-top: 5px; margin-bottom: 5px; padding: 4px; background-color: #EEEEEE;}
+		
+		
+		/* Layout */
+		html { background-position: center top; background-repeat: no-repeat; }
+		body { width: 668px; margin-left: auto; margin-right: auto;	}
+		#header { width: 668px; border-style: none; background-color: #000000; text-align: left; }
+		#nav { width: 150px; margin-left: 668px; position: absolute; }
+		#breadcrumb { width: 668px; height: 20px; line-height: 20px; text-indent: 15px; }
+		#content { position: absolute; width: 668px; margin-top: 0; margin-left: auto; margin-right: auto; margin-bottom: 15px; }
+		.padding-trbl { margin: 5px 15px; }
+
+		
+		/* Color */
+		html { background-color: #66AFCC; background-image: url(/images/background.png); }
+		#breadcrumb { background-color: #6C7398; font-weight: bold; }
+		#breadcrumb a { background-color: #6C7398; color: white; }
+		#content { background-color: white; }
+		#content a { color: #4C5378; }
+		#content h1 { color: #6C7398; }
+
+		
+		
+		/* Typography */
+		#nav, #nav a { font-size: 14px; }
+		#nav a { font-weight: bold; color: white; }
+		#nav a:hover { color: #DDDDFF; }
+		#nav li { line-height: 20px; }
+		li { list-style-type: none; }
+		li.bullets { list-style-type: disc; }
+		p.top {margin-top: 10px; margin-bottom: 20px; }
+		p.warning { font-weight: bold; color: red; font-size: 120%; line-height: 120%; }
+		</style>
+	</head>
+	<body id="api_docs">
+	<a name="top"></a>
+<div id="header"><img src="/images/placethings_logo.gif" width="180" height="59" /></div>
+<div id="nav">
+<ul>
+<li><a href="#requests">Requests</a></li>
+<li><a href="#responses">Responses</a></li>
+<li><a href="#accounts">User Accounts</a></li>
+<li><a href="#placing">Placing</a></li>
+<li><a href="#viewing">Viewing</a></li>
+<li><a href="#correcting">Correcting</a></li>
+<li><a href="#deleting">Deleting</a></li>
+<li><a href="#bundles">Bundles</a></li>
+<li><a href="#thumbnails">Thumbnails</a></li>
+</ul>
+</div>
+<div id="breadcrumb"><a href="/docs/">Placethings Documentation</a> / <a href="/docs/api/">API</a></div>
+<div id="content">
+<div class="padding-trbl">
+<p class="warning">Please note: The Placethings API is still in development and will likely change.</p>
+<p>
+The placething API uses standard HTTP requests. Users can publish new Things as well as view, edit, and respond to existing Things. Placething uses standard POST requests encoded as "application/x-www-form-urlencoded" to request data. To see any of these mechanisms in action, please use the <a href="/api/test/">API test forms</a>.
+</p>
+<br />
+
+<a name="requests"></a>
+<h1>Requests</h1>
+<p>Placethings API requests adhere to the HTTP 1.1 protocol. POST requests are used anytime the user wishes to create or modify something. GET requests are used all other times. Responses can be JSON, XML, or plaintext.</p>
+<br />
+<h3>Specifying the response format</h3>
+<p>
+To specify which format you would like your responses in, include the "format" parameter in your request. Valid values are "json", "xml", and "txt". <strong>The default format is plaintext</strong>.
+</p>
+<br />
+<h3>Example requests</h3>
+<p>Plaintext:</p>
+<pre>
+GET /api/view/?lat=60.1234&lng=22.1234&limit=1 HTTP/1.1
+Host: www.placethings.com
+</pre>
+<br />
+
+XML:
+<pre>
+GET /api/view/?lat=60.1234&lng=22.1234&limit=2&format=xml HTTP/1.1
+Host: www.placethings.com
+</pre>
+<br />
+
+JSON:
+<pre>
+GET /api/view/?lat=60.1234&lng=22.1234&limit=2&format=json HTTP/1.1
+Host: www.placethings.com
+</pre>
+<br />
+
+<a name="responses"></a>
+<h1>Responses</h1>
+<p>
+Responses can be formated as JSON, XML, or plaintext. All responses contain a list of zero or more Things. Regardless of the format, all responses contain the same information. URL's are used to specify the location of a Thing's media (text file, image, audio, or Youtube video). Linebreaks should and will be stripped from everywhere but the media in textual Things.
+</p>
+<br />
+<h3>Plaintext responses (default)</h3>
+<p>
+Plaintext responses contain zero or more Things separated by line-breaks. Attributes of each Thing are represented by key-value pairs. One newline character is used at the end of each key-value attribute.
+</p>
+<br />
+Example
+<pre>
+id=398
+lat=37.331689
+lng=-122.030731
+media=http://www.placethings.com/media/2009/10/23/398.txt
+timestamp=2009-10-23 14:06:14
+type=T
+title=
+dist=
+author=
+username=
+parent=
+replies=0
+quantity=
+bundles=
+
+id=397
+lat=32.82248
+lng=-96.762986
+media=http://www.placethings.com/media/2009/10/23/397.jpg
+timestamp=2009-10-23 14:03:34
+type=I
+title=
+dist=
+author=2
+username=johntron
+avatar=http://www.placethings.com/media/avatars/2009/10/21/2.jpg
+parent=
+replies=0
+quantity=
+bundles=
+
+</pre>
+<br />
+<br />
+<h3>JSON responses</h3>
+<p>
+</p>
+<br />
+Example
+<pre>
+{
+"status": "success",
+"results": "2",
+"things": [
+	{
+		"id": "398",
+		"lat": "37.331689",
+		"lng": "-122.030731",
+		"media": "http://www.placethings.com/media/2009/10/23/398.txt",
+		"timestamp": "2009-10-23 14:06:14",
+		"type": "T",
+		"title": "",
+		"dist": "",
+		"author": {
+			"id": "",
+			"username": ""
+		},
+		"parent": "",
+		"replies": "0",
+		"quantity": "",
+		"bundles": []
+	},
+	{
+		"id": "397",
+		"lat": "32.82248",
+		"lng": "-96.762986",
+		"media": "http://www.placethings.com/media/2009/10/23/397.jpg",
+		"timestamp": "2009-10-23 14:03:34",
+		"type": "I",
+		"title": "",
+		"dist": "",
+		"author": {
+			"id": "2",
+			"username": "johntron",
+			"avatar": "http://www.placethings.com/media/avatars/2009/10/21/2.jpg"
+		},
+		"parent": "",
+		"replies": "0",
+		"quantity": "",
+		"bundles": []
+	}
+	
+]
+}
+</pre>
+<br />
+<br />
+
+<h3>XML responses</h3>
+<p>
+</p>
+<br />
+Example
+<pre>
+&lt;thing_response&gt;
+	&lt;status&gt;success;&lt;/status&gt;
+	&lt;results&gt;2&lt;/results&gt;
+	&lt;things&gt;
+		&lt;thing&gt;
+			&lt;id&gt;398&lt;/id&gt;
+			&lt;lat&gt;37.331689&lt;/lat&gt;
+			&lt;lng&gt;-122.030731&lt;/lng&gt;
+			&lt;media&gt;http://www.placethings.com/media/2009/10/23/398.txt&lt;/media&gt;
+			&lt;timestamp&gt;2009-10-23 14:06:14&lt;/timestamp&gt;
+
+			&lt;type&gt;T&lt;/type&gt;
+			&lt;title&gt;&lt;/title&gt;
+			&lt;dist&gt;&lt;/dist&gt;
+			&lt;author&gt;
+				&lt;id&gt;&lt;/id&gt;
+				&lt;username&gt;&lt;/username&gt;
+			&lt;/author&gt;
+			&lt;parent&gt;&lt;/parent&gt;
+
+			&lt;replies&gt;0&lt;/replies&gt;
+			&lt;quantity&gt;&lt;/quantity&gt;
+			&lt;bundles&gt;&lt;/bundles&gt;
+		&lt;/thing&gt;
+		&lt;thing&gt;
+			&lt;id&gt;397&lt;/id&gt;
+			&lt;lat&gt;32.82248&lt;/lat&gt;
+
+			&lt;lng&gt;-96.762986&lt;/lng&gt;
+			&lt;media&gt;http://www.placethings.com/media/2009/10/23/397.jpg&lt;/media&gt;
+			&lt;timestamp&gt;2009-10-23 14:03:34&lt;/timestamp&gt;
+			&lt;type&gt;I&lt;/type&gt;
+			&lt;title&gt;&lt;/title&gt;
+			&lt;dist&gt;&lt;/dist&gt;
+			&lt;author&gt;
+
+				&lt;id&gt;2&lt;/id&gt;
+				&lt;username&gt;johntron&lt;/username&gt;
+				&lt;avatar&gt;http://www.placethings.com/media/avatars/2009/10/21/2.jpg&lt;/avatar&gt;
+			&lt;/author&gt;
+			&lt;parent&gt;&lt;/parent&gt;
+			&lt;replies&gt;0&lt;/replies&gt;
+			&lt;quantity&gt;&lt;/quantity&gt;
+
+			&lt;bundles&gt;&lt;/bundles&gt;
+		&lt;/thing&gt;
+	&lt;/things&gt;
+&lt;/thing_response&gt;
+</pre>
+<p class="top"><a href="#top">top</a></p>
+
+
+<a name="accounts"></a>
+<h1>User accounts</h1>
+<h2>Creation</h2>
+<p>
+To create a user account on Placethings, an HTTP POST request must be sent to the /api/register/ URL. This request must include the username and the password in the query parameters "username" and "password". The corresponding response is a simple "success;" or "fail;", and may have a message after the semicolon.
+</p>
+<strong>Required parameters:</strong>
+<ul>
+<li>username</li>
+<li>password</li>
+<li>email</li>
+</ul>
+
+<br />
+<h2>Authentication</h2>
+<p>
+Authentication is just as simple as account creation, but requests are sent to /api/login/. The server responds the same as account creation, but also returns a Set-Cookie header with the session ID stored in the "sessionid" variable. The client must keep track of this cookie for any future requests.
+</p>
+<strong>Required parameters:</strong>
+<ul>
+<li>username</li>
+<li>password</li>
+</ul>
+
+<br />
+<h2>Getting the current user</h2>
+<p>
+Sometimes a client app needs to know if a user is authenticated already or not. For instance, when a client application is launched by a user who has already logged in previously, the app must have a way of determining if the existing session is still valid. The entire user profile can be had by sending a simple HTTP GET request to /api/get-profile. This method accepts the format parameter just like any other request.
+</p>
+<strong>Optional parameter:</strong>
+<ul>
+<li>format</li>
+</ul>
+<strong>Example response (plaintext)</strong>
+<pre>
+id=1
+username=johntron
+first_name=John
+last_name=Syrinek
+email=john[dot]syrinek[at]gmail[dot]com
+avatar=http://placethings/media/avatars/2009/10/02/1.jpg
+website=http://www.johntron.com/
+twitter_username=johntron
+</pre>
+<br/>
+<h2>Logging out</h2>
+<p>
+To log out, the client sends a request to /api/logout/. This destroys the session on the server.
+</p>
+<p class="top"><a href="#top">top</a></p>
+
+
+<a name="placing"></a>
+<h1>Placing</h2>
+<p>
+Users send POST requests to place Things.
+</p>
+<p>
+<strong>URL</strong>: /api/place/
+</p>
+
+<strong>Required parameters:</strong>
+<ul>
+<li>lat -- Lattitude</li>
+<li>lng -- Longitude</li>
+<li>media -- Media data</li>
+</ul>
+
+<strong>Optional parameters:</strong>
+<ul>
+<li>title</li>
+<li>tags -- CSV</li>
+<li>parent -- Used to place a response to an existing Thing</li>
+<li>privacy -- Specifies who can view the object. Options are U (Public; default), F (Friends only; not implemented), and R (Author only)</li>
+</ul>
+<br />
+<h3>Example</h3>
+
+<strong>Placing an image</strong>:
+<pre>
+POST /api/place/ HTTP/1.1
+Host: www.placethings.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: ??
+
+lat=60.1234&lng=22.1234
+
+** BINARY DATA HERE **
+</pre>
+<pre>
+HTTP/1.1 200 OK
+Content-Type: text/plaintext
+
+id=23
+title=pic
+lat=60.1234
+lng=22.1234
+dist=
+type=I
+author=
+media=http://www.placethings.com/media/2008/08/14/23.jpg
+parent=0
+replies=0
+quantity=
+bundles=
+timestamp=2009-07-24 15:07:23
+</pre>
+<br />
+<strong>Responding to the image above</strong>:
+<pre>
+POST /api/place/ HTTP/1.1
+Host: www.placethings.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: ??
+
+lat=60.1234&lng=22.1234&parent=23&privacy=U
+
+** BINARY DATA HERE **
+</pre>
+<pre>
+HTTP/1.1 200 OK
+Content-Type: text/plaintext
+
+id=24
+title=
+lat=60.1234
+lng=22.1234
+dist=
+type=T
+author=
+media=http://www.placethings.com/media/2008/08/14/24.txt
+parent=23
+replies=0
+quantity=
+bundles=
+timestamp=2009-07-24 15:07:23
+</pre>
+<p class="top"><a href="#top">top</a></p>
+
+
+<a name="viewing"></a>
+<h1>Viewing</h1>
+<p>
+To view nearby things, users must query the API. This is done by sending a GET request with any number of filter criteria.
+</p>
+<br />
+<strong>Parameters</strong>
+<ul>
+<li>id -- Thing ID</li>
+<li>lat -- Current lattitude</li>
+<li>lng -- Current longitude</li>
+<li>maxdist -- Maximum distance in miles</li>
+<li>limit -- Maximum number of Things returned</li>
+<li>offset -- Result to start at; Results are zero-indexed; Ignores results from zero to offset minus 1; Use with limit for pagination</li>
+<li>type -- Media types; Comma-separated list of any of the following: "text", "image", "audio".</li>
+<li>maxage -- Maximum age, in minutes; Not implemented</li>
+<li>minage -- Minimum age, in minutes; Not implemented</li>
+<li>order -- Specifies sort order; Comma-separated list of attributes to order by. Use a hyphen to sort in opposite order. "-timestamp" is most common and used to see newest things first. Default is "distance".</li>
+<li>parent -- Parent Id, Get replies for an object</li>
+<li>uid -- Author ID</li>
+<li>username -- Author username</li>
+<li>pullup_type -- Possible values are "recent" and "older". Returns Things newer or older than the Thing with the given <em>id</em> (required).
+ <!-- Two types of the records that can be pulled up. 'recent' & 'old'. This works only if the uid is given. Given the uid, the user can pull up either the recent records or old records with respect to uid. --></li>
+</ul>
+<br/>
+
+<h3>Examples</h3>
+Get 3 closest Things:
+<pre>
+GET /api/view/?lat=60.1234&lng=22.1234&limit=3 HTTP/1.1
+Host: www.placethings.com
+</pre>
+<pre>
+HTTP/1.1 200 OK
+Content-Type: text/plaintext
+
+id=12
+title=Amazing view
+lat=60.1234
+lng=22.1234
+dist=
+type=I
+author=
+media=http://www.placethings.com/media/2008/08/14/12.jpg
+parent=0
+replies=0
+quantity=
+bundles=
+timestamp=2009-07-24 15:07:23
+
+id=23
+title=pic
+lat=60.1234
+lng=22.1234
+dist=
+type=I
+author=
+media=http://www.placethings.com/media/2008/08/14/23.jpg
+parent=0
+replies=0
+quantity=
+bundles=
+timestamp=2009-07-24 15:07:23
+
+id=800
+title=Poem inspired by here
+dist=
+type=T
+author=
+media=http://www.placethings.com/media/2008/08/14/800.txt
+parent=0
+replies=0
+quantity=
+bundles=
+timestamp=2009-07-24 15:07:23
+</pre>
+<br />
+Get 3 newest Things:
+<pre>
+GET /api/view/?order=-timestamp&limit=3 HTTP/1.1
+Host: www.placethings.com
+</pre>
+<pre>
+HTTP/1.1 200 OK
+Content-Type: text/plaintext
+
+id=23
+title=Beautiful bird song
+lat=60.5678
+lng=22.5678
+dist=
+type=I
+author=
+media=http://www.placethings.com/media/2008/08/14/23.mp3
+parent=0
+replies=0
+quantity=
+bundles=
+timestamp=2009-07-24 15:07:23
+
+id=12
+title=Amazing view
+lat=60.1234
+lng=22.1234
+dist=
+type=I
+author=
+media=http://www.placethings.com/media/2008/08/14/12.jpg
+parent=0
+replies=0
+quantity=
+bundles=
+timestamp=2009-07-24 15:07:23
+
+id=800
+title=Poem inspired by here
+lat=61.0000
+lng=23.0000
+dist=
+type=I
+author=
+media=http://www.placethings.com/media/2008/08/14/800.txt
+parent=0
+replies=0
+quantity=
+bundles=
+timestamp=2009-07-24 15:07:23
+</pre>
+<p class="top"><a href="#top">top</a></p>
+
+
+<a name="correcting"></a>
+<h1>Correcting</h1>
+<p>
+Inevitably, Things are going to get placed in the wrong location. While this is often a result of the inaccuracy of GPS, users are allowed to manually correct the location of previously placed Things. To do so, the client must send a request to the /api/correct/ URL with the Thing's ID, new latitude coordinate, and new longitude coordinate. These query variables are appropriately called "id", "lat", and "lng". The server responds with the standard Thing data. There is a hard-coded limit on how far things can be moved (or corrected).
+</p>
+<p>
+<strong>URL</strong>: /api/correct/
+</p>
+<strong>Required parameters:</strong>
+<ul>
+<li>id - ID of Thing to be corrected</li>
+<li>lat - new lattitude</li>
+<li>lng - new longitude</li>
+</ul>
+
+<br />
+<h3>Example</h3>
+<pre>
+POST /api/correct/ HTTP/1.1
+Host: www.placethings.com
+
+id=23&lat=60.1234&lng=20.1234
+</pre>
+<pre>
+HTTP/1.1 200 OK
+Content-Type: text/plaintext
+
+id=23
+title=Amazing pic
+lat=60.1234
+lng=22.1234
+dist=
+type=I
+author=
+media=http://www.placethings.com/media/2008/08/14/12.jpg
+parent=0
+replies=0
+quantity=
+bundles=
+timestamp=2009-07-24 15:07:23
+</pre>
+<p class="top"><a href="#top">top</a></p>
+
+
+<a name="deleting"></a>
+<h1>Deleting</h1>
+<p>
+Authors can delete their own things (but no one elses). This is done by sending a request to /api/delete/ with the id of the Thing to delete as a POST parameter.
+</p>
+<p>
+<strong>URL</strong>: /api/delete/
+</p>
+<strong>Required parameter:</strong>
+<ul>
+<li>id - ID of Thing to be deleted</li>
+</ul>
+
+<br />
+<h3>Example</h3>
+<pre>
+POST /api/delete/ HTTP/1.1
+Host: www.placethings.com
+
+id=23</pre>
+<pre>
+HTTP/1.1 200 OK
+Content-Type: text/plaintext
+
+success; thing with id=18 has been removed
+</pre>
+<p class="top"><a href="#top">top</a></p>
+
+<a name="bundles"></a>
+<h1>Bundles</h1>
+<p>Sometimes users will want to use more than one media format, say a picture and audio, to describe something. Bundles were created for just this purpose. A bundle is simply a Thing that contains more than one piece of media. Each piece of media in a bundle is treated as a standard Thing. This mean each piece of media in a bundle has all of the same attributes and can be manipulated using the same functions as a standard Thing.</p>
+<p><strong>Please note:</strong> When viewing Things normally (using /api/view/), bundles will not appear as their own entities. Instead, any Thing belonging to a bundle will have a "bundles" attribute which contains a comma-separated list of bundle IDs. It is up to the developer to visually represent these Things as belonging to a bundle. If the developer wishes to view all things in a bundle, we've created the /api/list-bundle/ API method.</p>
+<br />
+<h2>Creating bundles</h2>
+<p>To create a bundle, you must first create one Thing for each piece of media you would like to include in the bundle. Do this as you would any standard Thing. After doing so, create a complex Thing by sending a comma-separated list of Thing IDs to /api/create-bundle/. If a user creates a bundle while logged in, they will be the only one that can modify that Thing in the future. If a user creates a bundle and is <em>not</em> logged in, anyone can modify the bundle in the future</p>
+<p>There is also a "title" attribute that can be set for each bundle. Do this by including the "title" parameter in the request sent to create the bundle.</p>
+
+<p><strong>URL</strong>: /api/create-bundle/</p>
+
+<strong>Required parameter:</strong>
+<ul>
+<li>things - IDs of Things to be included in the bundle</li>
+</ul>
+
+<strong>Optional parameters:</strong>
+<ul>
+<li>title</li>
+<li>privacy - Same as privacy for Things. Default is public</li>
+</ul>
+
+<br />
+<h3>Example</h3>
+<pre>
+POST /api/create-bundle/ HTTP/1.1
+Host: www.placethings.com
+
+ids=11,54,21
+</pre>
+<pre>
+success; id=6
+</pre>
+<p class="top"><a href="#top">top</a></p>
+
+<h2>Listing a bundle's contents</h2>
+<p>To list all Things in a bundle, send a request to /api/list-bundle/</p>
+
+<p><strong>URL</strong>: /api/list-bundle/</p>
+<strong>Required parameter:</strong>
+<ul>
+<li>id - bundle ID</li>
+</ul>
+
+
+<br />
+<h3>Example</h3>
+<pre>
+POST /api/list-bundle/ HTTP/1.1
+Host: www.placethings.com
+
+ids=11,54,21
+</pre>
+<pre>
+success; id=6
+</pre>
+<p class="top"><a href="#top">top</a></p>
+
+<h2>Adding to bundles</h2>
+<p>To add Things to an existing bundle, specify the bundle ID and the Thing IDs you would like to add as a comma-separated list.</p>
+<p><strong>URL</strong>: /api/add-to-bundle/</p>
+<strong>Required parameters:</strong>
+<ul>
+<li>id - bundle ID</li>
+<li>ids - CSV of Thing IDs to be added to bundle</li>
+</ul>
+
+<br />
+<h3>Example</h3>
+<pre>
+POST /api/add-to-bundle/ HTTP/1.1
+Host: www.placethings.com
+
+id=6&ids=22,49
+</pre>
+<pre>
+success; id=6
+</pre>
+<p class="top"><a href="#top">top</a></p>
+
+<h2>Removing from bundles</h2>
+<p>To remove Things from a bundle, specify the bundle ID and the Thing IDs you would like to remove as a comma-separated list.</p>
+<p><strong>URL</strong>: /api/remove-from-bundle/</p>
+<strong>Required parameters:</strong>
+<ul>
+<li>id - bundle ID</li>
+<li>ids - CSV of Thing IDs to be removed from bundle</li>
+</ul>
+
+<br />
+<h3>Example</h3>
+<pre>
+POST /api/remove-from-bundle/ HTTP/1.1
+Host: www.placethings.com
+
+id=6&ids=54,22
+</pre>
+<pre>
+success; id=6
+</pre>
+<p class="top"><a href="#top">top</a></p>
+
+<h2>Deleting bundles</h2>
+<p>A bundle is automatically deleted once all Things have been removed. Use the /api/remove-from-bundle/ API method listed above to accomplish this.</p>
+<br />
+<h3>Example</h3>
+<pre>
+POST /api/remove-from-bundle/ HTTP/1.1
+Host: www.placethings.com
+
+id=6&ids=11,21,49
+</pre>
+<pre>
+success; bundle deleted
+</pre>
+<p class="top"><a href="#top">top</a></p>
+
+
+<h2>Reordering bundles</h2>
+<p>When a bundle is created, its Things will likely be in a random order. We realize the user will sometimes want to specify the order themselves, and the API supports such an operation. This operation moves a single Thing in a bundle to a new position in the same bundle. It is not possible to reorder an entire bundle in one operation. To move a Thing to a new position in a bundle, simply specify the bundle, the thing, and the new index of the Thing in the bundle. The API will assign the Thing to this new index and shift the other Things in the bundle as necessary. Please note, order is zero-indexed.</p>
+<p><strong>URL</strong>: /api/reorder-thing-in-bundle/</p>
+<strong>Required parameters:</strong>
+<ul>
+<li>id - bundle ID</li>
+<li>thing - ID of thing to be reordered</li>
+<li>index - which numeric position (zero-indexed) the Thing should be moved to</li>
+</ul>
+
+<br />
+<h3>Example</h3>
+<pre>
+POST /api/reorder-thing-in-bundle/ HTTP/1.1
+Host: www.placethings.com
+
+id=6&thing=54&index=2
+</pre>
+<pre>
+success; id=6
+</pre>
+<p class="top"><a href="#top">top</a></p>
+
+<a name="thumbnails"></a>
+<h1>Thumbnails</h1>
+<p>Thumbnails can be generated in whatever size you'd like. Simply specify the dimensions in the GET request. The format is as follows:</p>
+<p>
+http://www.placethingscom/media/<strong>&lt;year&gt;</strong>/<strong>&lt;month&gt;</strong>/<strong>&lt;day&gt;</strong>/<strong>&lt;id&gt;</strong>-<strong>&lt;width&gt;</strong>x<strong>&lt;height&gt;</strong>.jpg
+</p>
+<p>Where:</p>
+<ul>
+<li><strong>year</strong> is the four digit year the Thing was created</li>
+<li><strong>month</strong> is the two digit (zero-padded) month the Thing was created</li>
+<li><strong>day</strong> is the two digit (zero-padded) day the Thing was created</li>
+<li><strong>id</strong> is the Thing ID</li>
+<li><strong>width</strong> is the maximum width (not actual)</li>
+<li><strong>height</strong> is the maximum height (not actual)</li>
+</ul>
+<p>It is important to realize the <strong>width</strong> and <strong>height</strong> dimensions are maximum sizes, and may not be the actual dimensions. Placethings will maintain the aspect ratio of the original image while resizing it to fit within the dimensions you specify. If you specify dimensions with a different aspect ratio as the original image, the thumbnail you get back <strong>will not</strong> be the same dimensions as the ones you specify.</p>
+<p>This method returns the image itself (a JPEG).</p>
+<p class="top"><a href="#top">top</a></p>
+
+</div>
+</div>
+	</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Things by {{user.username}}</title>
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+		<script type="text/javascript" src="/scripts/jquery-1.3.2.min.js"></script>
+		<script type="text/javascript" src="/scripts/jquery-ui-1.7.2.custom.min.js"></script>
+		<script type="text/javascript" src="/scripts/jquery-cookie.js"></script>
+		<script type="text/javascript" src="/scripts/placethings-base.js"></script>
+		<script type="text/javascript" src="/scripts/placethings-inspector.js"></script>
+		<script type="text/javascript" src="/scripts/map.js"></script>
+		<script type="text/javascript">
+			$(document).ready( function() {
+				loadMarkersForUser( {{user.id}} )
+			})
+		</script>
+		<link rel="stylesheet" href="/css/user_profile.css" type="text/css" />
+	</head>
+	<body id="location">
+	<div style="height:100%;">
+	<div id="title">
+	<a href="http://www.placethings.com/" id="logo"><img src="/images/placethings_logo.png" /></a>
+	<h1>{{user.first_name}} {{user.last_name}}'s Things</h1>
+
+	<div class="wrapper">
+		<div id="user">
+		<div class="wrapper">
+			{% if request.user.is_authenticated %}
+			<span class="name loggedin"><a href="/things/by/{{request.user.username}}/">{{request.user.username}}</a></span>
+			{% else %}
+			<span class="name"><a href="/login/" class="dropdown">Login</a></span>
+			{% endif %}
+			<div id="login_form">
+				{% if request.user.is_authenticated %}
+				<a href="/logout/">Logout</a>
+				{% else %}
+				<form method="post" action="/login/">Username: <input type="text" name="username" /><br />Password: <input type="password" name="password" /><br /><button type="submit">Login</button></form>
+				{% endif %}
+			</div>
+		</div>
+		</div>
+<br />
+		<span id="map_type_selectors"><a href="#">Roadmap</a> | <a href="#">Satellite</a> | <a href="#">Hybrid</a></span>
+		<a href="#" id="rss"><img src="/images/rss.gif" /></a>
+	</div>
+	</div>
+	{% block browser %}{% endblock %}
+	{% block inspector %}{% endblock %}
+	<div id="map_canvas"></div>
+	</div>
+	</body>
+</html>

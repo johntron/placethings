@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import pstats
+
+s = pstats.Stats("/www/placethings.com/www/profiling/placethings.profile")
+s.sort_stats("cumulative").print_stats()

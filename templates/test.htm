@@ -1,0 +1,491 @@
+{% load format_select %}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:fb="http://www.facebook.com/2008/fbml"> 
+	<head>
+		<title>Placethings API Test Page</title>
+		<style type="text/css">
+		/* Defaults */
+		html, body, * { margin: 0; padding: 0; font-family: Tahoma; font-size: 10px; line-height: 12px; }
+		h1 { font-size: 17px; line-height: 20px; font-weight: bold; }
+		h2 { font-size: 13px; line-height: 15px; }
+		h3 { font-size: 11px; line-height: 13px; }
+		a { text-decoration: none; }
+		a:hover { text-decoration: underline; }
+		p { margin-top: 6px; margin-bottom: 6px; }
+		ul { margin-bottom: 5px; }
+		li { margin-left: 14px; }
+		pre { font-family: Courier; border: 1px dashed gray; margin-top: 5px; margin-bottom: 5px; padding: 4px; background-color: #EEEEEE;}
+		fieldset { border: 1px solid gray; }		
+		
+		/* Layout */
+		html { background-position: center top; background-repeat: no-repeat; }
+		body { width: 680px; margin-left: auto; margin-right: auto;	}
+		#header { width: 668px; border-style: none; background-color: #000000; text-align: left; }
+		#nav { width: 170px; margin-left: 668px; position: absolute; }
+		#breadcrumb { width: 668px; height: 20px; line-height: 20px; text-indent: 15px; }
+		#content { position: absolute; width: 668px; margin-top: 0; margin-left: auto; margin-right: auto; margin-bottom: 15px; }
+		.padding-trbl { margin: 5px 15px; }
+		label { display: block; line-height: 10px; font-size: 10px; margin-top: 5px; }
+		button.submit { margin-top: 10px; }
+		td { vertical-align: top; }
+		a.button img { border-width: 0; vertical-align: middle;}
+		#format_selector { margin-top: 5px; }
+		
+		
+		/* Color */
+		html { background-color: #66AFCC; background-image: url(/images/background.png); }
+		#breadcrumb { background-color: #6C7398; font-weight: bold; }
+		#breadcrumb a { background-color: #6C7398; color: white; }
+		#content { background-color: white; }
+		#content a { color: #4C5378; }
+		#content h1 { color: #6C7398; }
+
+		
+		
+		/* Typography */
+		#nav, #nav a { font-size: 14px; }
+		#nav a { font-weight: bold; color: white; }
+		#nav a:hover { color: #DDDDFF; }
+		#nav li { line-height: 20px; }
+		li { list-style-type: none; }
+		li.bullets { list-style-type: disc; }
+		p.top {margin-top: 10px; margin-bottom: 20px; }
+		</style>
+		<script type="text/javascript" src="/scripts/jquery-1.3.2.min.js"></script>
+		<script type="text/javascript">
+			
+			
+			$(document).ready( function() {
+				$( '.format_select' ).change( function( e ) {
+					$( '.format_select' ).val( $(e.target).val() )
+				})
+			})
+		</script>
+	</head>
+	<body id="api_docs">
+	 <script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php/en_US" type="text/javascript"></script>
+	 <script type="text/javascript">
+		function check(){
+			alert('hello');
+			}
+	FB.init("5d56290fdf9ed3ccaef36bafbb26a23c", "/fbconnect/fb/callback/");
+	 
+	 </script>
+	<a name="top"></a>
+<div id="header"><img src="/images/placethings_logo.gif" width="180" height="59" /></div>
+<div id="nav">
+<ul>
+{% if youtube_token %}
+<li><a href="#upload-video">Upload Video</a></li>
+{% else %}
+{% if user.is_authenticated %}
+<li><a href="#logout">Logout</a></li>
+<li><a href="#update-profile">Update Profile</a></li>
+<li><a href="#video-details">Video Details</a></li>
+{% else %}
+<li><a href="#login">Login</a></li>
+<li><a href="#register">Register</a></li>
+{% endif %}
+<li><a href="#place">Place</a></li>
+<li><a href="#view">View</a></li>
+<li><a href="#correct">Correct</a></li>
+<li><a href="#delete">Delete</a></li>
+<li><a href="#list_bundle">List Bundle</a></li>
+<li><a href="#create_bundle">Create Bundle</a></li>
+<li><a href="#add_to_bundle">Add to Bundle</a></li>
+<li><a href="#remove_from_bundle">Remove from Bundle</a></li>
+<li><a href="#reorder_bundle">Reordering Bundles</a></li>
+{% endif %}
+</ul>
+</div>
+<div id="breadcrumb"><a href="/docs/">Placethings API Test forms</a></div>
+<div id="content">
+<div class="padding-trbl">
+
+{% if youtube_token %}
+<a name='upload-video'></a>
+<h1>Upload Video</h1>
+<fieldset>
+<div class="padding-trbl">
+<form action="{{post_url}}?nexturl={{next}}" method="post" enctype="multipart/form-data">
+<input name="file" type="file"/>
+<input name="token" type="hidden" value="{{youtube_token}}"/>
+<input value="Upload Video File" type="submit" />
+</form>
+</div>
+</fieldset>
+<p class="top"><a href="#top">top</a></p>
+<br />
+<p>
+<strong>Logged in as:</strong> <span>{{user.username}}</span>
+</p>
+<br />
+
+{% else %}
+
+{% if user.is_authenticated %}
+<br />
+<p>
+<strong>Logged in as:</strong> <span>{{user.username}}</span>
+</p>
+<br />
+
+<a name="logout"></a>
+<h1>Logout</h1>
+<fieldset>
+<div class="padding-trbl">
+<form method="GET" action="/api/logout/">
+	{% output_format_select %}
+	<button type="submit">Logout</button>
+</form>
+</div>
+</fieldset>
+<p class="top"><a href="#top">top</a></p>
+
+<a name="get-profile"></a>
+<h1>Get Profile</h1>
+<fieldset>
+<div class="padding-trbl">
+<form method="GET" action="/api/get-profile/">
+	{% output_format_select %}
+	<button type="submit">Get profile</button>
+</form>
+</div>
+</fieldset>
+<p class="top"><a href="#top">top</a></p>
+
+
+<a name="update-profile"></a>
+<h1>Update Profile</h1>
+<fieldset>
+<div class="padding-trbl">
+<form method="POST" action="/api/update-profile/" enctype="multipart/form-data">
+{{user_form.as_p}}
+<p><label>Password:</label> **** <a href="/api/change-password/">change password</a></p>
+{% if user.get_profile.avatar %}
+<img src="{{ user.get_profile.avatar.url }}" style="width: 200px;" />
+{% endif %}
+{% if twitter_pic %}
+<img src="{{ twitter_pic }}" style="width: 200px;" />
+{% endif %}
+{{profile_form.as_p}}
+{% output_format_select %}
+<button type="submit" class="submit">Update</button>
+</form>
+</div>
+</fieldset>
+<p class="top"><a href="#top">top</a></p>
+
+<a name="video-details"></a>
+<h1>Video Details</h1>
+<fieldset>
+<div class="padding-trbl">
+<form method="POST" action="/api/youtube_auth/?oauth_domain=video" enctype="multipart/form-data">
+<table style="width: 100%;" cellpadding="0" cellspacing="0">
+<br>
+<label>Title:</label>
+<input type="text" name="title" /><br />
+<label>Description:</label>
+<input type="text" name="description" /><br />	
+<button type="submit">Submit</button>
+</br>
+</table>
+</form>
+</div>
+</fieldset>
+<p class="top"><a href="#top">top</a></p>
+{% else %}
+<a name="login"></a>
+<h1>Login</h1>
+<fieldset>
+<div class="padding-trbl">
+	<form method="POST" action="/api/login/">
+	<label>Username:</label>
+	<input type="text" name="username" /><br />
+	<label>Password:</label>
+
+	<input type="password" name="password" /><br />
+	{% output_format_select %}
+	<button type="submit" class="submit">Login</button><br />
+	</form>
+	<a href="/api/oauth_login/?oauth_domain=twitter" class="button"><img src="/images/twitter_button_2_hi.gif" title="Sign in with Twitter" /></a>
+	<fb:login-button v="2" size="medium">Connect</fb:login-button>
+	<a href="/api/youtube_auth/?oauth_domain=youtube" class="button"><img src="/images/youtube.jpg" title = "Sign in with youtube" /></a>
+</div>
+</fieldset>
+<p class="top"><a href="#top">top</a></p>
+
+<a name="register"></a>
+<h1>Register</h1>
+<fieldset>
+<div class="padding-trbl">
+{% if user_form.message %}<p>{{user_form.message}}</p>{% endif %}
+<form method="POST" action="/api/register/" enctype="multipart/form-data">
+{{user_form.as_p}}
+{% if twitter_pic %}
+<img src="{{ twitter_pic }}" style="width: 200px;" />
+{% endif %}
+{% if youtube_pic %}
+<img src="{{ youtube_pic }}" style="width: 200px;" />
+{% endif %}
+{{profile_form.as_p}}
+{% output_format_select %}
+<button type="submit" class="submit">Register</button>
+</form>
+</div>
+</fieldset>
+<p class="top"><a href="#top">top</a></p>
+
+{% endif %}
+
+<a name="place"></a>
+<h1>Place</h1>
+<fieldset>
+<div class="padding-trbl">
+<form method="POST" action="/api/place/" enctype="multipart/form-data">
+<table style="width: 100%;" cellpadding="0" cellspacing="0">
+<tr>
+<td>
+<label>Title:</label>
+<input type="text" name="title" /><br />
+<label>Tags:</label>
+<input type="text" name="tags" /><br />
+<label>Lattitude:</label>
+<input type="text" name="lattitude" value="32.82248" /><br />
+<label>Longitude:</label>
+<input type="text" name="longitude" value="-96.762986" /><br />
+{% if media %}
+<label>Media:</label>
+<input type="text" name="media" value= "{{media}}"/><br />
+{% else %}
+<label>File:</label>
+<input type="file" name="media" /><br />
+{% endif %}
+<label>Duration:</label>
+<input type="text" name="duration" /><em> (in seconds) </em><br />
+<label>Parent:</label>
+<input type="text" name="parent" /><br />
+{% if type %}
+<input type="text" name="type" value= "{{type}}" style="display:none"/><br />
+{% endif %}
+</td><td>
+<label>Privacy:</label>
+<ul>
+	<li><label><input type="radio" name="privacy" value="U" checked="checked" /> Public</label></li>
+	<li><label><input type="radio" name="privacy" value="F" /> Friends only</label></li>
+	<li><label><input type="radio" name="privacy" value="R" /> Private (you only)</label></li>
+</ul>
+</td>
+</tr>
+</table>
+<label>Lifespan in minutes:</label>
+<input type="text" name="lifespan" />
+        <em> (enter 0 for indefinite) </em><br />
+        <strong>- OR -</strong><br />
+        Begin date:
+<input type="text" />
+        and end date:
+<input type="text" /><br />
+	{% output_format_select %}
+<button type="submit" class="submit">Place</button>
+</form>
+</div>
+</fieldset>
+<p class="top"><a href="#top">top</a></p>
+
+
+<a name="view"></a>
+<h1>View</h1>
+<fieldset>
+<div class="padding-trbl">
+<form method="GET" action="/api/view/">
+	<table style="width: 100%;" cellpadding="0" cellspacing="0">
+	<tr>
+	<td>
+	<label>Thing ID:</label>
+	<input type="text" name="id" /><br />
+	</td>
+	</tr>
+	<tr>
+	<td>
+	<label>Maximum distance:</label>
+	<input type="text" name="maxdist" /><br />
+	<label>Lattitude:</label>
+	<input type="text" name="lattitude" value="32.82248" /><br />
+	<label>Longitude:</label>
+	<input type="text" name="longitude" value="-96.762986" /><br />
+	</td><td>
+	<label>Maximum age:</label>
+	<input type="text" name="maxage" /><br />
+	<label>Minimum age:</label>
+	<input type="text" name="minage" /><br />
+	</td></tr></table>
+	<label>Limit:</label>
+	<input type="text" name="limit" /><br />
+	<label>Offset:</label>
+	<input type="text" name="offset" /><br />
+	<label>Type:</label>
+	<input type="text" name="type" /><br />
+	<label>Order:</label>
+	<input type="text" name="order" /><br />
+	<label>Parent:</label>
+	<input type="text" name="parent" /><br />
+	<!--
+	<label>In inventory:</label>
+	<label><input type="checkbox" name="in_inventory" value="yes" /> Yes</label><br />
+	-->
+	{% output_format_select %}
+    <button type="submit" class="submit">View</button>
+</form>
+</div>
+</fieldset>
+<p class="top"><a href="#top">top</a></p>
+
+
+<a name="correct"></a>
+<h1>Correct</h1>
+<fieldset>
+<div class="padding-trbl">
+<form method="POST" action="/api/correct/">
+	<label>Thing ID:</label>
+	<input type="text" name="id" /><br />
+	<label>Lattitude:</label>
+	<input type="text" name="lattitude" value="32.82248" /><br />
+	<label>Longitude:</label>
+	<input type="text" name="longitude" value="-96.762986" /><br />
+	{% output_format_select %}
+    <button type="submit" class="submit">Correct</button>
+</form>
+</div>
+</fieldset>
+<p class="top"><a href="#top">top</a></p>
+
+
+<a name="delete"></a>
+<h1>Delete</h1>
+<fieldset>
+<div class="padding-trbl">
+<form method="POST" action="/api/delete/">
+	<label>Thing ID:</label>
+	<input type="text" name="id" /><br />
+	{% output_format_select %}
+    <button type="submit" class="submit">Delete</button>
+</form>
+</div>
+</fieldset>
+<p class="top"><a href="#top">top</a></p>
+
+
+<a name="take"></a>
+<h1>Take</h1>
+<fieldset>
+<div class="padding-trbl">
+<form method="POST" action="/api/take/">
+	<label>Thing ID:</label>
+	<input type="text" name="id" /><br />
+	{% output_format_select %}
+    <button type="submit" class="submit">Take</button>
+</form>
+</div>
+</fieldset>
+<p class="top"><a href="#top">top</a></p>
+
+<a name="list_bundle"></a>
+<h1>List Bundle</h1>
+<fieldset>
+<div class="padding-trbl">
+<form method="GET" action="/api/list-bundle/">
+	<label>Bundle ID:</label>
+	<input type="text" name="id" /><br />
+	{% output_format_select %}
+    <button type="submit" class="submit">List</button>
+</form>
+</div>
+</fieldset>
+<p class="top"><a href="#top">top</a></p>
+
+<a name="create_bundle"></a>
+<h1>Create Bundle</h1>
+<fieldset>
+<div class="padding-trbl">
+<form method="POST" action="/api/create-bundle/">
+	<table style="width: 100%;" cellpadding="0" cellspacing="0">
+	<tr>
+	<td>
+	<label>Title:</label>
+	<input type="text" name="title" /> <em>(optional)</em><br />
+	<label>Description:</label>
+	<input type="text" name="description" /> <em>(optional)</em><br />
+	<label>Thing IDs:</label>
+	<input type="text" name="ids" /> <em>(required)</em><br />
+	</td><td>
+	<label>Privacy:</label>
+	<ul>
+		<li><label><input type="radio" name="privacy" value="U" checked="checked" /> Public</label></li>
+		<li><label><input type="radio" name="privacy" value="F" /> Friends only</label></li>
+		<li><label><input type="radio" name="privacy" value="R" /> Private (you only)</label></li>
+	</ul>
+	</td>
+	</tr>
+	</table>
+	{% output_format_select %}
+    <button type="submit" class="submit">Create</button>
+</form>
+</div>
+</fieldset>
+<p class="top"><a href="#top">top</a></p>
+
+<a name="add_to_bundle"></a>
+<h1>Add to bundle</h1>
+<fieldset>
+<div class="padding-trbl">
+<form method="POST" action="/api/add-to-bundle/">
+	<label>Bundle ID:</label>
+	<input type="text" name="id" />
+	<label>Thing IDs:</label>
+	<input type="text" name="ids" /><br />
+	{% output_format_select %}
+    <button type="submit" class="submit">Add</button>
+</form>
+</div>
+</fieldset>
+<p class="top"><a href="#top">top</a></p>
+
+<a name="remove_from_bundle"></a>
+<h1>Remove from bundle</h1>
+<fieldset>
+<div class="padding-trbl">
+<form method="POST" action="/api/remove-from-bundle/">
+	<label>Bundle ID:</label>
+	<input type="text" name="id" />
+	<label>Thing IDs:</label>
+	<input type="text" name="ids" /><br />
+	{% output_format_select %}
+    <button type="submit" class="submit">Remove</button>
+</form>
+</div>
+</fieldset>
+<p class="top"><a href="#top">top</a></p>
+
+<a name="reorder_bundle"></a>
+<h1>Reorder Bundles</h1>
+<fieldset>
+<div class="padding-trbl">
+<form method="POST" action="/api/reorder-thing-in-bundle/">
+	<label>Bundle ID:</label>
+	<input type="text" name="id" />
+	<label>Thing ID:</label>
+	<input type="text" name="thing" /><br />
+	<label>New index:</label>
+	<input type="text" name="index" /><br />
+	{% output_format_select %}
+    <button type="submit" class="submit">Reorder</button>
+</form>
+</div>
+</fieldset>
+<p class="top"><a href="#top">top</a></p>
+{% endif %}
+</div>
+</div>
+</body>
+</html>

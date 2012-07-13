@@ -1,0 +1,6 @@
+
+curl -O http://gdata-python-client.googlecode.com/files/gdata-2.0.4.tar.gz
+tar -xzf gdata-2.0.4.tar.gz
+sudo python setup.py install
+
+./manage.py syncdb

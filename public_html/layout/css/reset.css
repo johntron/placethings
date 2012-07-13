@@ -1,0 +1,49 @@
+/* CSS reset */
+
+* {
+	background-repeat: no-repeat;
+	background-color: transparent;
+	border: 0 none;
+	font-weight: normal;
+	font-style: normal;
+	margin: 0;
+	outline-color: -moz-use-text-color;
+	outline-style: none;
+	outline-width: 0;
+	padding: 0;
+	text-decoration: none;
+}
+
+body {
+	font-size: 100%;
+	line-height: 1;
+}
+
+ul {
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+	content: none;
+}
+
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+
+a img, input {
+	border: 0 none;
+}
+
+
+textarea 
+{
+	overflow:auto;
+}

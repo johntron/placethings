@@ -1,0 +1,4 @@
+<thing_response>
+	<status>fail</status>
+	<message>{{message}}</message>
+</thing_response>

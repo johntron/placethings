@@ -1,0 +1,67 @@
+{% extends 'things_by_user/base.htm' %}
+{% load thumbnail_url %}
+
+{% block browser %}
+		<div id="browser">
+		<div class="wrapper">
+			<ul>
+			{% for thing in things %}
+				{% ifequal thing.type "I" %}
+				<li class="thing image" lattitude="{{thing.lattitude}}" longitude="{{thing.longitude}}">
+					<a href="/thing/{{thing.id}}/" id="thing{{thing.id}}" thing="{{thing.id}}" class="thing link" title="{{thing.title|default:""}}">
+					<div class="wrapper">
+						{% if thing.title %}<h2 class="title">{{thing.title}}</h2>{% endif %}
+						<img class="thumbnail" src="{{thing.media|thumbnail_url:'160x160'}}" />
+						{% if thing.bundle_set.all %}<img class="bundle" src="/images/set.png" />{% endif %}
+					</div>
+					</a>
+				</li>
+				{% endifequal %}
+				{% ifequal thing.type "T" %}
+				<li class="thing text" lattitude="{{thing.lattitude}}" longitude="{{thing.longitude}}">
+					<a href="/thing/{{thing.id}}/" id="thing{{thing.id}}" thing="{{thing.id}}" class="thing link" title="{{thing.title|default:""}}">
+					<div class="wrapper">
+						{% if thing.title %}<h2 class="title">{{thing.title}}</h2>{% endif %}
+						<p class="excerpt" media="{{thing.media}}"></p>
+						{% if thing.bundle_set.all %}<img class="bundle" src="/images/set.png" />{% endif %}
+					</div>
+					</a>
+				</li>
+				{% endifequal %}
+			{% endfor %}
+
+			</ul>
+			<div id="slider"></div>
+		</div>
+		<a href="#" class="zoom_control"><img src="/images/panel_control_up.png" /></a>
+		</div>		
+{% endblock %}
+
+{% block inspector %}
+		<div id="inspector" class="hidden">
+			<div id="bundle" class="hidden">
+				<ul><li>&nbsp;</li><li>&nbsp;</li><li>&nbsp;</li><li>&nbsp;</li></ul>
+			</div>
+			<div id="thing">
+			<div class="wrapper">
+				<h2>&nbsp;</h2>
+				<div class="media"></div>
+				<div class="meta">
+					<label class="age">Age: </label><span class="age">&nbsp;</span><br />
+					<label class="location">Location: </label><span class="location">&nbsp;</span><br />
+					<br />
+					<a href="#" class="author avatar">&nbsp;</a> 
+					<span href="#" class="author name">&nbsp;</span><br />
+					AKA <a href="#" class="author username">&nbsp;</a><br />
+					<a href="#" class="author follow">Follow</a><br />
+				</div>
+				<div id="thing-chink">&nbsp;</div>
+			</div>
+			</div>
+			<div id="replies" class="hidden"><img src="/images/reply-chink.png" id="reply-chink" />
+				<ul>
+					<li>test</li>
+				</ul>
+			</div>
+		</div>
+{% endblock %}

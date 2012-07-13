@@ -1,0 +1,23 @@
+{% extends 'test.htm' %} 
+{% loadfacebook_tags %}  
+{% block 'content' %}
+<div> 
+<form action="/accounts/profile/" method="post" name="profileForm" id="profileForm"> <table> 
+<tr><td> <table border='0'> 
+<tr> 
+<td colspan='2'> 
+<span> 
+<label for="Fname">Name:</label><br> 
+<input id="nameUser" name="nameUser" type="text" readonly 
+	value="{%show_facebook_full_name user %}">  
+</span>  
+</td>
+</tr> 
+</table> 
+</td> 
+<td align='center' valign='top'>  Facebook ProfileImage<br /> 
+{% show_facebook_large_photo user %} 
+</td>  
+</tr></table>
+</form> </div> </div> 
+{% endblock %}

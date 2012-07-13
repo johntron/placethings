@@ -1,0 +1,1 @@
+python -m cProfile -o /www/placethings.com/www/profiling/placethings.profile /www/placethings.com/www/profiling/profileserver.py 
